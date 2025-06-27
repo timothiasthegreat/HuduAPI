@@ -103,6 +103,7 @@
     'New-HuduCompany',
     'New-HuduCustomHeaders',
     'New-HuduFolder',
+    'New-HuduNetwork',
     'New-HuduPassword',
     'New-HuduPublicPhoto',
     'New-HuduRelation',
