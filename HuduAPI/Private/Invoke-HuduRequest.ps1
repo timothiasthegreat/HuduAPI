@@ -9,9 +9,6 @@ function Invoke-HuduRequest {
     .PARAMETER Method
     GET,POST,DELETE,PUT,etc
 
-    .PARAMETER Path
-    Path to API endpoint
-
     .PARAMETER Params
     Hashtable of parameters
 
@@ -40,7 +37,7 @@ function Invoke-HuduRequest {
         [string]$Body,
 
         [Parameter()]
-        [hashtable]$Form
+        [hashtable]$Form  
     )
 
     $HuduAPIKey = Get-HuduApiKey
@@ -99,15 +96,39 @@ function Invoke-HuduRequest {
     try {
         $Results = Invoke-RestMethod @RestMethod
     } catch {
-        if ("$_".trim() -eq 'Retry later' -or "$_".trim() -eq 'The remote server returned an error: (429) Too Many Requests.') {
-            Write-Information 'Hudu API Rate limited. Waiting 30 Seconds then trying again'
-            Start-Sleep 30
-            # Retry the original REST call, not the whole wrapper function
-            $Results = Invoke-RestMethod @RestMethod
+        $errorMessage = $_.Exception.Message
+        if ($errorMessage -like '*Retry later*' -or $errorMessage -like '*429*Too Many Requests*') {
+            $now = Get-Date
+            $windowLength = 5 * 60  # 5 minutes in seconds
+            $secondsIntoWindow = (($now.Minute % 5) * 60) + $now.Second
+            $secondsUntilNextWindow = [math]::Max(0, $windowLength - $secondsIntoWindow)
+
+            $jitter = Get-Random -Minimum 1 -Maximum 5
+            $totalSleep = [math]::Max(0, $secondsUntilNextWindow + $jitter)
+            Write-Host "Hudu API Rate limited; Sleeping for $totalSleep seconds to wait for next rate limit window..."
+            Start-Sleep -Seconds $totalSleep
         } else {
-            Write-Error "'$_'"
+            if ($script:SKIP_HAPI_ERROR_RETRY -and $true -eq $script:SKIP_HAPI_ERROR_RETRY) { return $null }
+            Write-APIErrorObject -name "$($resource ?? 'general')-$($method ?? 'unknown')" -ErrorObject @{
+                exception = $_
+                request = $RestMethod
+                resolution = "Trying again in 5 seconds."
+            }
+            Start-Sleep -Seconds 5
+        }
+
+        try {
+            $Results = Invoke-RestMethod @RestMethod
+        } catch {
+            Write-APIErrorObject -name "$($resource ?? 'general')-$($method ?? 'unknown')-retry" -ErrorObject @{
+                exception = $_
+                request = $RestMethod
+                resolution = "Retry failed as well. Handle this error here or avoid it prior."
+            }
+            return $null
         }
     }
+
 
     $Results
 }

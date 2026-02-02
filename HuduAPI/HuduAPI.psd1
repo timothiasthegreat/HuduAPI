@@ -12,7 +12,7 @@
     RootModule        = '.\HuduAPI.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '2.3.0'
+    ModuleVersion     = '3.14.15'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -69,7 +69,8 @@
     # NestedModules = @()
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport =	'Get-HuduActivityLogs',
+    FunctionsToExport =	
+    'Get-HuduActivityLogs',
     'Get-HuduAPIKey',
     'Get-HuduAppInfo',
     'Get-HuduArticles',
@@ -84,14 +85,29 @@
     'Get-HuduExpirations',
     'Get-HuduFolderMap',
     'Get-HuduFolders',
+    'Get-HuduGroups',
+    'Get-HuduIPAddresses',
     'Get-HuduIntegrationMatchers',
+    'Get-HuduLists',
+    'Get-HuduNetworks',
     'Get-HuduMagicDashes',
+    'Get-HuduNetworks',
     'Get-HuduPasswords',
-    'Get-HuduProcesses',
+    'Get-HuduPasswordFolders',
+    'Get-HuduProcedures',
+    'Get-HuduProcedureTasks',
     'Get-HuduPublicPhotos',
+    'Get-HuduRackStorageItems',
+    'Get-HuduRackStorages',
     'Get-HuduRelations',
     'Get-HuduSubFolders',
     'Get-HuduUploads',
+    'Get-HuduVLANs',
+    'Get-HuduVLANZones',
+    'Get-HuduUsers',
+    'Get-HuduUsers',
+    'Get-HuduVLANs',
+    'Get-HuduVLANZones',    
     'Get-HuduWebsites',
     'Initialize-HuduFolder',
     'Invoke-HuduRequest',
@@ -103,10 +119,24 @@
     'New-HuduCompany',
     'New-HuduCustomHeaders',
     'New-HuduFolder',
+    'New-HuduIPAddress',
+    'New-HuduList',
+    'New-HuduNetwork',
     'New-HuduPassword',
+    'New-HuduPasswordFolder',
     'New-HuduPublicPhoto',
+    'New-HuduProcedure',
+    'New-HuduProcedureTask',
+    'New-HuduProcedureFromTemplate',
+    'New-HuduRackStorageItem',
+    'New-HuduRackStorage',    
+    'New-HuduProcedure',
+    'New-HuduProcedureTask',
+    'New-HuduProcedureFromTemplate',
     'New-HuduRelation',
     'New-HuduUpload',
+    'New-HuduVLAN',
+    'New-HuduVLANZone',
     'New-HuduWebsite',
     'Remove-HuduAPIKey',
     'Remove-HuduArticle',
@@ -114,26 +144,53 @@
     'Remove-HuduBaseURL',
     'Remove-HuduCompany',
     'Remove-HuduCustomHeaders',
+    'Remove-HuduIPAddress',
+    'Remove-HuduList',
     'Remove-HuduMagicDash',
+    'Remove-HuduNetwork',
     'Remove-HuduPassword',
-    'Remove-HuduPassword',
+    'Remove-HuduPasswordFolder',
+    'Remove-HuduProcedure',
+    'Remove-HuduProcedureTask',
+    'Remove-HuduRackStorageItem',
+    'Remove-HuduRackStorage',    
+    'Remove-HuduProcedure',
+    'Remove-HuduProcedureTask', 
     'Remove-HuduRelation',
     'Remove-HuduUpload',
+    'Remove-HuduVLAN',
+    'Remove-HuduVLANZone',
     'Remove-HuduWebsite',
     'Set-HuduArticle',
     'Set-HuduArticleArchive',
     'Set-HuduAsset',
     'Set-HuduAssetArchive',
     'Set-HuduAssetLayout',
-    'Set-HuduAssetLayout',
+    'Set-HuduAssetLayoutField',
     'Set-HuduCompany',
     'Set-HuduCompanyArchive',
     'Set-HuduFolder',
     'Set-HuduIntegrationMatcher',
+    'Set-HuduIPAddress',
+    'Set-HuduList',
     'Set-HuduMagicDash',
+    'Set-HuduNetwork',
+    'Set-HuduProcedure',
+    'Set-HuduProcedureTask',
     'Set-HuduPassword',
+    'Set-HuduPasswordFolder',
     'Set-HuduPasswordArchive',
-    'Set-HuduWebsite'
+    'Set-HuduVLAN',
+    'Set-HuduVLANZone',
+    'Set-HuduRackStorageItem',
+    'Set-HuduRackStorage',
+    'Set-HuduVLAN',
+    'Set-HuduVLANZone',    
+    'Set-HuduWebsite',
+    'Start-HuduProcedure',
+    'Start-HuduExport',
+    'Start-HuduS3Export',
+    'Set-HapiErrorsDirectory'
 
 
 
@@ -188,4 +245,3 @@
     # DefaultCommandPrefix = ''
 
 }
-
